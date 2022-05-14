@@ -8,9 +8,9 @@ import { Post } from "./post/post.model";
 })
 export class AppComponent {
   title = 'mean-chat-app';
-  posts: Post[] = [];
+  // posts: Post[] = [];
 
-  onPostAdded(p:Post){
-    this.posts.push(p);
-  }
+  // onPostAdded(p:Post){
+  //   this.posts.push(p);
+  // }
 }

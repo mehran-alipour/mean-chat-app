@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+// import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 // import { FormControl } from '@angular/forms';
 
-import {Post} from "../post.model";
+import { PostsService } from '../posts.service';
+// import {Post} from "../post.model";
 
 @Component({
   selector: 'app-post-create',
@@ -13,7 +15,7 @@ export class PostCreateComponent implements OnInit {
   // newPost: string = "No Content";
   // newPost2: string = "No Content";
   // enteredValue = ''; // two way bonding
-  @Output() addPost = new EventEmitter<Post>();
+  // @Output() addPost = new EventEmitter<Post>();
   // title = new FormControl('');
   // content = new FormControl('');
 
@@ -21,7 +23,7 @@ export class PostCreateComponent implements OnInit {
   // enteredTitle = '';
   // enteredDesc = '';
 
-  constructor() { }
+  constructor(public postsServices: PostsService) { }
 
   ngOnInit(): void {
   }
@@ -50,14 +52,20 @@ export class PostCreateComponent implements OnInit {
   //   this.content.setValue("");
   //   this.addPost.emit(postData);
   // }
+  // onAddPost(form: NgForm){
+  //   if(!form.invalid){
+  //     const postData:Post = {
+  //       title: form.value.title,
+  //       content:  form.value.content
+  //     }
+  //     form.reset();
+  //     this.addPost.emit(postData);
+  //   }
+  // }
   onAddPost(form: NgForm){
     if(!form.invalid){
-      const postData:Post = {
-        title: form.value.title,
-        content:  form.value.content
-      }
-      form.reset();
-      this.addPost.emit(postData);
+      this.postsServices.addPost(form.value.title, form.value.content);
+      form.resetForm();
     }
   }
 
