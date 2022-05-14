@@ -1,9 +1,60 @@
-<textarea rows="6" [value]="newPost" #postInput></textarea>
+<!-- <textarea rows="6" [value]="newPost" #postInput></textarea> // property bining
 <hr />
-<button (click)="onAddPost(postInput)">Save Post</button>
+<button (click)="onAddPost(postInput)">Save Post</button> // event binding
 <p>{{ newPost }}</p>
 
-<textarea rows="6" [(ngModel)] ="enteredValue"></textarea>
+<textarea rows="6" [(ngModel)] ="enteredValue"></textarea> // two way bonding
 <hr />
-<button (click)="onAddSecondPost()">Save Post</button>
-<p>{{ newPost2 }}</p>
+<button (click)="onAddSecondPost()">Save Post</button> // event binding
+<p>{{ newPost2 }}</p> -->
+
+<!-- <mat-card> // Forms with data binding
+  <mat-form-field>
+    <input matInput [(ngModel)] ="enteredTitle" >
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput rows="6" [(ngModel)] ="enteredDesc" ></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="accent" (click)="onAddPost()">Save Post</button>
+</mat-card> -->
+<!-- <form (ngSubmit)="onSubmit()"> // Simple Reactive form
+  <mat-card>
+    <mat-form-field>
+      <input matInput id="title" type="text" [formControl] ="title" >
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput rows="6" [formControl] ="content" ></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Save Post</button>
+  </mat-card>
+</form>
+<p>{{ title.value + " -> " + content.value }}</p> -->
+
+<form (submit)="onAddPost(postForm)" #postForm="ngForm">
+  <mat-card>
+    <mat-form-field>
+      <input
+        matInput
+        id="title"
+        name="title"
+        type="text"
+        ngModel
+        required
+        minlength="3"
+        #title="ngModel">
+        <mat-error *ngIf="title.invalid">Post title is Required!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        name="content"
+        ngModel
+        required
+        #content="ngModel">
+      </textarea>
+      <mat-error *ngIf="content.invalid">Post content is Required!</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Save Post</button>
+  </mat-card>
+</form>
